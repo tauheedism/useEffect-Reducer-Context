@@ -56,22 +56,27 @@ const Login = (props) => {
     };
   }, []);
 
-  // useEffect(() => {
+  const {isValid: emailIsValid} = emailState
+  const {isValid: passwordIsValid} = passwordState
 
-  //   const identifier = setTimeout(() => {
-  //     console.log('checking form validity')
-  //     setFormIsValid(
-  //       enteredEmail.includes("@") &&
-  //         enteredPassword.trim().length > 6 &&
-  //         enteredcollegeName.includes("college")
-  //     );
-  //   }, 5000)
-  //   return () => {
-  //     console.log("CLEANUP")
-  //     clearTimeout(identifier)
-  //   }
-  // }, [enteredEmail, enteredPassword, enteredcollegeName]);
+  useEffect(() => {
 
+    const identifier = setTimeout(() => {
+      console.log('checking form validity')
+      setFormIsValid(
+          emailIsValid &&
+          passwordIsValid &&
+          enteredcollegeName.includes("college")
+      );
+    }, 5000)
+    return () => {
+      console.log("CLEANUP")
+      clearTimeout(identifier)
+    }
+  }, [emailIsValid, passwordIsValid, enteredcollegeName]);
+
+
+  
   const collegeNameChangeHandler = (event) => {
     //console.log(event.target.value)
     setEnteredcollegeName(event.target.value);
